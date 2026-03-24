@@ -1,0 +1,34 @@
+parameters:
+  level: 6
+  paths:
+    - ../../../test
+    - ../../../lib
+  excludePaths:
+    analyse:
+      - ../../../vendor
+  reportUnmatchedIgnoredErrors: false
+  ignoreErrors:
+    - '#Constant .* is unused.#'
+    - identifier: missingType.return
+    - identifier: missingType.iterableValue
+    - identifier: missingType.generics
+    - identifier: phpDoc.parseError
+    - identifier: argument.type
+    - identifier: identical.alwaysFalse
+    - identifier: identical.alwaysTrue
+    - identifier: notIdentical.alwaysTrue
+    - identifier: notIdentical.alwaysFalse
+    - identifier: if.alwaysFalse
+    - identifier: if.alwaysTrue
+    - identifier: booleanAnd.alwaysFalse
+    - identifier: booleanAnd.alwaysTrue
+    - identifier: booleanOr.alwaysFalse
+    - identifier: function.impossibleType
+    - identifier: function.alreadyNarrowedType
+    - identifier: greater.alwaysFalse
+    - identifier: greater.alwaysTrue
+    - identifier: isset.variable
+    - identifier: missingType.property
+    - identifier: missingType.parameter
+    - identifier: parameter.notFound
+  
