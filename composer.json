@@ -1,0 +1,56 @@
+{
+    "name": "ccvshop/econnect-psb-php",
+    "description": "PHP example implementation for using the Procurement Service Bus.",
+    "keywords": [
+        "econnect",
+		"psb",
+		"peppol"
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": false,
+    "homepage": "https://psb.econnect.eu",
+    "license": "unlicense",
+    "authors": [
+        {
+            "name": "eConnect International B.V.",
+            "homepage": "https://econnect.eu"
+        }
+    ],
+    "require": {
+        "php": ">=7.2",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "guzzlehttp/guzzle": "^7.0",
+        "jumbojett/openid-connect-php": "^1.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "dev-master",
+        "phpmd/phpmd": "dev-master",
+        "slevomat/coding-standard": "^8.0@dev",
+        "squizlabs/php_codesniffer": "^3.0@dev",
+        "phpstan/phpstan": "2.1.x-dev",
+        "phpunit/phpunit": "9.6.x-dev"
+    },
+    "autoload": {
+        "psr-4": { "EConnect\\Psb\\" : "lib/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "EConnect\\Psb\\Test\\" : "test/" }
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "scripts": {
+      "checkcode": "composer phpcs; composer php-cs-fixer; composer phpmd; composer phpstan",
+      "fixcode": "composer phpcs-fix; composer php-cs-fixer-fix",
+      "phpcs": "vendor/bin/phpcs --standard=./ci-cd/config/phpcs/phpcs.xml --ignore=\"*/bootstrap/cache/*,*/database/*,*/node_modules/*,*/public/build/*,*/public/index.php,*/storage/*,*/vendor/*\" --no-cache ./",
+      "php-cs-fixer": "vendor/bin/php-cs-fixer --config=./ci-cd/config/php-cs-fixer/php-cs-fixer.dist.php check -vv",
+      "phpmd": "vendor/bin/phpmd ./ text ./ci-cd/config/phpmd/ruleset.phpmd.xml --exclude \"./vendor, ./test\"",
+      "phpstan": "vendor/bin/phpstan analyse -c ci-cd/config/phpstan/phpstan.neon --ansi",
+      "phpcs-fix": "vendor/bin/phpcbf --standard=./ci-cd/config/phpcs/phpcs.xml --ignore=\"*/bootstrap/cache/*,*/database/*,*/node_modules/*,*/public/build/*,*/public/index.php,*/storage/*,*/vendor/*\" --no-cache ./",
+      "php-cs-fixer-fix": "vendor/bin/php-cs-fixer --config=./ci-cd/config/php-cs-fixer/php-cs-fixer.dist.php fix -vv"
+    }
+}

@@ -1,0 +1,41 @@
+# Bootstrap variables and templates
+variables:
+  REGISTRY: gitlab.biedmeer.nl:5555
+  DOCKER_NAMESPACE: ccv/middleware
+
+.qa-workbench: &qa-workbench
+  #template voor alle qa-workbench stages
+  image:
+    name: ${REGISTRY}/ccv/middleware/qa-workbench/php-7.4:v0.1.0
+    pull_policy: if-not-present
+  services:
+    - name: docker:28.5.1-dind-alpine3.22
+      pull_policy: if-not-present
+  rules:
+    # Enkel draaien in Merge Requests en niet op de master.
+    - if: $CI_MERGE_REQUEST_EVENT_TYPE != "merge_train" && $CI_MERGE_REQUEST_EVENT_TYPE
+      when: on_success
+  stage: verify
+  # Deze suit kan altijd draaien
+  needs: [ ]
+  tags:
+    - docker
+  before_script:
+    - git config --global --add safe.directory $CI_PROJECT_DIR
+    - composer install  --no-interaction --no-scripts --no-progress --prefer-dist --no-ansi
+
+# Stages
+linting-phpcs:
+  <<: *qa-workbench
+  script:
+    - composer phpcs
+
+linting-php-cs-fixer:
+  <<: *qa-workbench
+  script:
+    - composer php-cs-fixer
+
+linting-phpstan:
+  <<: *qa-workbench
+  script:
+    - composer phpstan
